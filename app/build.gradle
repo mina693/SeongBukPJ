@@ -34,7 +34,4 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile group: project.KAKAO_SDK_GROUP, name: 'usermgmt', version: project.KAKAO_SDK_VERSION
     compile 'com.facebook.android:facebook-android-sdk:4.+'
-    compile files('libs/unity-classes.jar')
-    compile files('libs/Vuforia.jar')
-    compile files('libs/VuforiaUnityPlayer.jar')
 }
