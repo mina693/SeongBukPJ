@@ -1,116 +1,100 @@
 package com.example.b100.seongbook;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-
-import com.kakao.auth.ErrorCode;
-import com.kakao.auth.ISessionCallback;
-import com.kakao.auth.Session;
-import com.kakao.network.ErrorResult;
-import com.kakao.usermgmt.UserManagement;
-import com.kakao.usermgmt.callback.LogoutResponseCallback;
-import com.kakao.usermgmt.callback.MeResponseCallback;
-import com.kakao.usermgmt.response.model.UserProfile;
-import com.kakao.util.exception.KakaoException;
-import com.kakao.util.helper.log.Logger;
-
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-
-import org.json.JSONObject;
-
-import java.util.Arrays;
-
+import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
-    SessionCallback callback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /**카카오톡 로그아웃 요청**/
-        //한번 로그인이 성공하면 세션 정보가 남아있어서 로그인창이 뜨지 않고 바로 onSuccess()메서드를 호출합니다.
-        //테스트 하시기 편하라고 매번 로그아웃 요청을 수행하도록 코드를 넣었습니다 ^^
-        UserManagement.requestLogout(new LogoutResponseCallback() {
+        ImageView f1 = (ImageView)findViewById(R.id.f1);
+        f1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCompleteLogout() {
-                //로그아웃 성공 후 하고싶은 내용 코딩 ~
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://store.naver.com/restaurants/detail?id=31676210&entry=plt&query=%EB%A9%94%EC%A2%85%EB%93%9C%EB%A3%A8%EC%A6%88");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+        ImageView f2 = (ImageView)findViewById(R.id.f2);
+        f2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://store.naver.com/restaurants/detail?id=37420979");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+        ImageView f3 = (ImageView)findViewById(R.id.f3);
+        f3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://store.naver.com/restaurants/detail?id=11716359");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+        ImageView f4 = (ImageView)findViewById(R.id.f4);
+        f4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://store.naver.com/restaurants/detail?id=11569524&entry=plt&query=%EC%88%98%EC%97%B0%EC%82%B0%EB%B0%A9");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+        ImageView f5 = (ImageView)findViewById(R.id.f5);
+        f5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://store.naver.com/restaurants/detail?id=37090281&entry=plt&query=%EC%9C%A4%ED%9C%98%EC%8B%9D%EB%8B%B9");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
             }
         });
 
-        callback = new SessionCallback();
-        Session.getCurrentSession().addCallback(callback);
+        ImageView nt = (ImageView)findViewById(R.id.notice);
+        nt.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                AlertDialog.Builder dlg = new AlertDialog.Builder(MainActivity.this);
+                dlg.setTitle("공지사항");
+                dlg.setMessage("공지사항입니다.");
+                dlg.setIcon(R.drawable.app);
+                dlg.setPositiveButton("확인", null);
+                dlg.show();
+            }
+        });
 
-    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        ImageView imgcoupon = (ImageView) findViewById(R.id.imgcoupon);
+        imgcoupon.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent = new Intent(getApplicationContext(),CouponActivity.class);
+                startActivity(intent);
+            }
+        });
+        ImageView imgmap = (ImageView) findViewById(R.id.imgmap);
+        imgmap.setOnClickListener( new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent = new Intent(getApplicationContext(),MapActivity.class);
+                startActivity(intent);
+            }
+        });
+        ImageView imgcamera = (ImageView) findViewById(R.id.imgcamera);
+        imgcamera.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent = new Intent(getApplicationContext(),CamActivity.class);
+                startActivity(intent);
+            }
+        });
 
-        //간편로그인시 호출 ,없으면 간편로그인시 로그인 성공화면으로 넘어가지 않음
-        if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
-            return;
-        }
-
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    private class SessionCallback implements ISessionCallback {
-
-        @Override
-        public void onSessionOpened() {
-
-            UserManagement.requestMe(new MeResponseCallback() {
-
-                @Override
-                public void onFailure(ErrorResult errorResult) {
-                    String message = "failed to get user info. msg=" + errorResult;
-                    Logger.d(message);
-
-                    ErrorCode result = ErrorCode.valueOf(errorResult.getErrorCode());
-                    if (result == ErrorCode.CLIENT_ERROR_CODE) {
-                        finish();
-                    } else {
-                        //redirectMainActivity();
-                    }
-                }
-
-                @Override
-                public void onSessionClosed(ErrorResult errorResult) {
-                }
-
-                @Override
-                public void onNotSignedUp() {
-                }
-
-                @Override
-                public void onSuccess(UserProfile userProfile) {
-                    //로그인에 성공하면 로그인한 사용자의 일련번호, 닉네임, 이미지url등을 리턴합니다.
-                    //사용자 ID는 보안상의 문제로 제공하지 않고 일련번호는 제공합니다.
-                    Log.e("UserProfile", userProfile.toString());
-                    Intent intent = new Intent(MainActivity.this, SuccessActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-            });
-
-        }
-
-        @Override
-        public void onSessionOpenFailed(KakaoException exception) {
-            // 세션 연결이 실패했을때
-            // 어쩔때 실패되는지는 테스트를 안해보았음 ㅜㅜ
-        }
     }
 }

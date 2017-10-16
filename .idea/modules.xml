@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/SeongBukPJ.iml" filepath="$PROJECT_DIR$/SeongBukPJ.iml" />
       <module fileurl="file://$PROJECT_DIR$/Seongbook-master.iml" filepath="$PROJECT_DIR$/Seongbook-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
