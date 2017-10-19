@@ -9,7 +9,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.Window;
 
-import com.unity3d.player.*;
+import com.unity3d.player.UnityPlayer;
 
 public class UnityPlayerActivity extends Activity
 {
