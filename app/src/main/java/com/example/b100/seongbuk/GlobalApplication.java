@@ -1,8 +1,4 @@
-package com.example.b100.seongbook;
-
-/**
- * Created by B100 on 2017-09-15.
- */
+package com.example.b100.seongbuk;
 
 import android.app.Activity;
 import android.app.Application;

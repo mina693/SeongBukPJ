@@ -1,10 +1,10 @@
-package com.example.b100.seongbook;
+package com.example.b100.seongbuk;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView imgcamera = (ImageView) findViewById(R.id.imgcamera);
         imgcamera.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                Intent intent = new Intent(getApplicationContext(),CamActivity.class);
+                Intent intent = new Intent(getApplicationContext(),UnityPlayerActivity.class);
                 startActivity(intent);
             }
         });

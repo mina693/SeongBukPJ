@@ -1,4 +1,4 @@
-package com.example.b100.seongbook;
+package com.example.b100.seongbuk;
 
 import android.app.Activity;
 import android.content.Intent;
